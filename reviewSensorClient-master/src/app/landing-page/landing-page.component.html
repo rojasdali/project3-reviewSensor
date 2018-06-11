@@ -1,0 +1,185 @@
+<!-- Logged out top nav -->
+<div *ngIf="!user">
+  <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar landingTopnav" id="probootstrap-navbar">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']" (click)="refresh()"> ReviewSensor </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span>
+          <i class="ion-navicon"></i>
+        </span>
+      </button>
+      <div class="collapse navbar-collapse" id="probootstrap-menu">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" [ngx-scroll-to]="'about'">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/signup']" (click)="refresh()">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']" (click)="refresh()">Log In</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- Logged in top nav -->
+<div *ngIf="user">
+<nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar landingTopnav" id="probootstrap-navbar">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']" (click)="refresh()"> Welcome {{ user.userFname }} </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span>
+        <i class="ion-navicon"></i>
+      </span>
+    </button>
+    <div class="collapse navbar-collapse" id="probootstrap-menu">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" [ngx-scroll-to]="'about'">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToDashboard(); refresh()">My Trips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+<!-- END nav -->
+
+<!-- ===========HEADER SECTION============ -->
+<section class="probootstrap-cover overflow-hidden relative" style="background-image: url('https://images.unsplash.com/photo-1445991842772-097fea258e7b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a9a4d583946e2bbbe92795a319da3611&auto=format&fit=crop&w=800&q=60');"
+data-stellar-background-ratio="0.5" id="section-home">
+<div class="overlay"></div>
+<div class="container">
+  <div class="row align-items-center text-center">
+    <div class="col-md">
+      <h1 class="heading mb-2 display-4 font-light probootstrap-animate">Never read another review again.</h1>
+      <div class="col-md probootstrap-animate">
+        <!-- search box -->
+        <form action="#" class="probootstrap-form searchbar">
+          <div class="form-group">
+            <div class="row mb-3 centerClass">
+              <!-- row -->
+              <div class="col-md-10">
+                <!-- column  1 -->
+                <div class="form-group">
+                  <div class="probootstrap_select-wrap">
+                    <form action="#">
+
+                      <div class="input-group budgetDropdown">
+                        <input type="text" class="form-control searchInput" [(ngModel)]="searchTerm" placeholder="What is your destination city?"
+                          name="search">
+
+                        <div class="form-group">
+                          <select class="js-example-basic-single js-states form-control" #labelSingle>
+                            <option value="$$$$">$$$$</option>
+                            <option value="$$$">$$$</option>
+                            <option value="$$">$$</option>
+                            <option value="$">$</option>
+                          </select>
+                        </div>
+
+                          <button class="btn btn-default search-button" type="submit" (click)="goToHotelList(labelSingle.value)">FIND HOTELS</button>
+
+                        <!-- </div> -->
+
+                      </div> <!-- END input-group -->
+
+                    </form>
+                  </div> <!-- END probootstrap_select-wrap -->
+                </div> <!-- END form-group div -->
+              </div> <!-- END column 1 -->
+            </div> <!-- END row -->
+          </div> <!-- END form-group div -->
+        </form>
+      </div> <!-- END search box -->
+    </div>
+  </div>
+</div>
+</section> <!-- END header section -->
+
+
+<!-- ===========WHAT WE DO SECTION============ -->
+<section class="probootstrap_section section" id="about">
+<div class="container">
+  <div class="row text-center mb-5">
+    <div class="col-md-12">
+      <h2 class="display-4 border-bottom probootstrap-section-heading underline">What We Do</h2>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="probootstrap-section-half d-md-flex halfSection">
+<div class="probootstrap-image order-2 probootstrap-animate halfImage" data-animate-effect="fadeIn" style="background-image: url(assets/images/review-scroll.gif)"></div>
+<div class="probootstrap-text textClass order-1">
+  <div class="probootstrap-inner probootstrap-animate body-text inner" data-animate-effect="fadeInLeft">
+    <h2 class="heading mb-4">Simple Search</h2>
+    <p> Run a simple search by location and budget. Using the Yelp API, we find the most reviewed hotels in that area which
+      are within your budget.</p>
+    <h2 class="heading mb-4" id="subheader">Natural Language Processing</h2>
+    <p>We read the reviews so you don't have to. We use IBM Watson's natural language processing capabilities to read through
+      all the reviews for each hotel and show you the overall sentiment, emotion, and keywords.</p>
+  </div>
+</div>
+</section>
+
+<!-- ===========WHO WE ARE SECTION============ -->
+<section class="probootstrap_section section probootstrap-border-top" id="section-feature-testimonial">
+<div class="container">
+  <h2 class="display-4 border-bottom underline probootstrap-section-heading justify-content-center subheading">Who We Are</h2>
+  <div class="row spaceEvenly mb-5">
+    <p class="probootstrap-author profile">
+      <a href="https://probootstrap.com/" target="_blank">
+        <img src="assets/images/rawan.png" alt="Free Template by ProBootstrap.com" class="rounded-circle">
+        <span class="probootstrap-name name">Rawan Alfaiz</span>
+        <div class="social">
+          <a href="https://www.linkedin.com/in/rawanalfaiz/">
+            <i class="fa fa-linkedin-square" style="font-size:24px"></i>
+          </a>
+          <a href="https://github.com/rawanalfaiz">
+            <i class="fa fa-github-square" style="font-size:24px"></i>
+          </a>
+        </div>
+      </a>
+    </p>
+    <p class="probootstrap-author profile">
+      <a href="https://probootstrap.com/" target="_blank">
+        <img src="assets/images/dali.jpeg" alt="Free Template by ProBootstrap.com" class="rounded-circle">
+        <span class="probootstrap-name name">Dali Rojas</span>
+        <div class="social">
+          <a href="https://www.linkedin.com/in/dalirojas/">
+            <i class="fa fa-linkedin-square" style="font-size:24px"></i>
+          </a>
+          <a href="https://github.com/rojasdali">
+            <i class="fa fa-github-square" style="font-size:24px"></i>
+          </a>
+        </div>
+      </a>
+    </p>
+    <p class="probootstrap-author profile">
+      <a href="https://probootstrap.com/" target="_blank">
+        <img src="assets/images/eleyni.png" alt="Free Template by ProBootstrap.com" class="rounded-circle">
+        <span class="probootstrap-name name">Eleyni Rodriguez</span>
+        <div class="social">
+          <a href="https://www.linkedin.com/in/eleyni-rodriguez/">
+            <i class="fa fa-linkedin-square" style="font-size:24px"></i>
+          </a>
+          <a href="https://github.com/erodrig1010">
+            <i class="fa fa-github-square" style="font-size:24px"></i>
+          </a>
+        </div>
+      </a>
+    </p>
+  </div>
+</div> <!-- END container -->
+</section>

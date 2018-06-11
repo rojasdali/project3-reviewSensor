@@ -1,0 +1,28 @@
+<app-topnav></app-topnav>
+
+<!-- ======================TITLE================================= -->
+
+
+<section class="section light-background" id="listHeader">
+    <div class="container">
+        <div class="row text-center mb-5">
+        <div class="col-md-12">
+            <h2 class="display-4 border-bottom probootstrap-section-heading underline border-bottom-listView">Top Hotels in {{name}}</h2>
+        </div>
+        </div>
+    </div>
+</section>
+
+<div class="page-loader2" *ngIf = "!showHotels" style="padding: 8%"> 
+    <div><img src="../../assets/images/loader.gif" alt="Loading" style="margin-bottom: 20px"></div>
+    <div><h3>Loading your hotels...</h3></div>
+</div>
+<!-- ======================END TITLE================================= -->
+
+<!-- this is pulling in singleHotels from the hotelDetails component -->
+
+<div style="color:black" *ngFor="let hotel of allTheHotels; let first = first">
+    <app-hotel-detail [oneSingleHotel]="hotel" [checked]="first"> </app-hotel-detail>
+  </div>
+
+  <!-- ======================================================= -->

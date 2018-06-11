@@ -1,0 +1,227 @@
+  <!-- =======================SINGLE HOTLE VIEW================================ -->
+  
+  <section class="probootstrap_section hotel-list">
+
+    <div class="container">
+
+      <div class="row probootstrap-media tripListContainer">
+
+          <div class="col-md-12 hotelListDetails">
+
+            <div class="media-body hotelListItemContent col-md-4">
+              <div class="hotelListImage">
+                <img [src]="oneSingleHotel.image_url" alt="{{oneSingleHotel.name}} image" class="img-fluid" style="width: 70%" />
+              </div>
+
+              <div>
+              <h4>{{oneSingleHotel.name}}</h4>
+              
+              <h5 *ngIf="oneSingleHotel.price.length === 1" style="color: #00CA4C">{{oneSingleHotel.price}} (Inexpensive) </h5>
+              <h5 *ngIf="oneSingleHotel.price.length === 2" style="color: #00CA4C">{{oneSingleHotel.price}} (Moderate)  </h5>
+              <h5 *ngIf="oneSingleHotel.price.length === 3" style="color: #00CA4C">{{oneSingleHotel.price}}  (Pricey) </h5>
+              <h5 *ngIf="oneSingleHotel.price.length === 4" style="color: #00CA4C">{{oneSingleHotel.price}} (Ultra High-End) </h5>   
+            
+              <h5>Total reviews: {{oneSingleHotel.review_count}} </h5> 
+
+              <div *ngIf = "oneSingleHotel.location.length === 1" class="address">
+                <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{oneSingleHotel.location[0]}}</p>
+              </div>
+              <div *ngIf = "oneSingleHotel.location.length === 2" class="address">
+                <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{oneSingleHotel.location[0]}}, {{oneSingleHotel.location[1]}}</p>
+              </div>
+              <div *ngIf = "oneSingleHotel.location.length === 3" class="address">
+                <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{oneSingleHotel.location[0]}}, {{oneSingleHotel.location[1]}}, {{oneSingleHotel.location[2]}}</p>
+              </div>
+
+              <div class="phone">
+                <i class="fa fa-phone" style="font-size:24px; color:#222"></i><p>{{oneSingleHotel.display_phone}}</p>
+              </div>
+              
+              <div class="form-group">
+                <button  (click) = "goToCreateTrip()" class="btn btn-primary form-control signupButton" value="add to trip" type="button"> Add to Trip </button>
+                <span *ngIf = "!checked"><button  (click)="getWatsonInfo(oneSingleHotel)" class="btn btn-primary form-control signupButton" value="analyze reviews" type="button"> Analyze Reviews </button></span>
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="loaders">
+
+              <div class = "page-loader" style="padding-top:15%" *ngIf = "!showWatson && checked">
+                <div><img  src="../../assets/images/loader.gif" alt=""></div>
+                <div><h3>Analyzing hotel reviews...</h3></div>
+              </div>
+  
+              <div class = "page-loader" style="padding-top:15%" *ngIf = "!showWatson && clicked && !checked">
+                <div><img  src="../../assets/images/loader.gif" alt=""></div>
+                <div><h3>Analyzing hotel reviews...</h3></div>
+              </div>
+            </div>
+
+            <div *ngIf = "showWatson">
+
+              <div class="emotionsSentiment row">
+
+                <div class="listWatsonEmotions">
+                    <p>Emotions</p>
+                  <div class="emotionsContainer">
+                    <div class="eachEmotion">
+                      <p>Anger</p>
+                      <mat-progress-bar mode="determinate" value="{{theHotel.emotions.anger}}"></mat-progress-bar>
+                    </div>
+                    <div class="eachEmotion">
+                      <p>Disgust</p>
+                      <mat-progress-bar mode="determinate" value="{{theHotel.emotions.disgust}}"></mat-progress-bar>
+                    </div>
+                    <div class="eachEmotion">
+                      <p>Fear</p>
+                      <mat-progress-bar mode="determinate" value="{{theHotel.emotions.fear}}"></mat-progress-bar>
+                    </div>
+                    <div class="eachEmotion">
+                      <p>Joy</p>
+                      <mat-progress-bar mode="determinate" value="{{theHotel.emotions.joy}}"></mat-progress-bar>
+                    </div>
+                    <div class="eachEmotion">
+                      <p>Sadness</p>
+                      <mat-progress-bar mode="determinate" value="{{theHotel.emotions.sadness}}"></mat-progress-bar>
+                    </div>
+                  </div>
+                </div> <!-- END listWatsonEmotions for emotions container -->
+
+                <div class="listWatsonSentiment">
+                  <p>Overall Sentiment</p>
+                  <app-bar-gauge [sentimentAnalyses] = "[theHotel.watson_sentiment[1], theHotel.watson_sentiment[0], theHotel.watson_sentiment[2]]"></app-bar-gauge>
+                </div> <!-- END listWatsonSentiment for sentiment container -->
+
+              </div> <!-- END emotionsSentiment col-md-4 -->
+
+              <div class="listWatsonKeywords">
+                <p>Top Keywords</p>
+                <div class="theKeywords">
+                  <div *ngFor = "let keyword of theHotel.keywords | slice:0:3" class="topKeywords" style="color:#222">
+                    <p>{{keyword.text}}</p>
+                  </div>
+                  <div *ngFor = "let keyword of theHotel.keywords | slice:3:25" class="secondaryKeywords" style="color:#222">
+                    <p>{{keyword.text}}</p>
+                  </div>
+                </div>
+              </div> <!-- END listWatsonEmotions for keywords container-->
+
+            </div> <!-- END ngIf showWatson -->
+            
+
+          </div> <!-- END col-md-12 tripListDetails -->
+
+      </div> <!-- END row probootstrap-media tripListContainer -->
+
+    </div> <!-- END container -->
+
+      <!-- <div class="listContainer">
+          <div class="row mb-4"> 
+            <div class="col-12"> 
+              <div class="mb-4">
+                
+              <div class="col-md-3 hotelListItem" >
+                  <img [src]="oneSingleHotel.image_url" alt="{{oneSingleHotel.name}} image" class="img-fluid" />
+              </div>
+    
+              <div class="media-body hotelListItemContent col-md-2">
+                  <h5>{{oneSingleHotel.name}}</h5>
+                  
+                  <h5 *ngIf="oneSingleHotel.price.length === 1" style="color: #00CA4C">{{oneSingleHotel.price}} (Inexpensive) </h5>
+                  <h5 *ngIf="oneSingleHotel.price.length === 2" style="color: #00CA4C">{{oneSingleHotel.price}} (Moderate)  </h5>
+                  <h5 *ngIf="oneSingleHotel.price.length === 3" style="color: #00CA4C">{{oneSingleHotel.price}}  (Pricey) </h5>
+                  <h5 *ngIf="oneSingleHotel.price.length === 4" style="color: #00CA4C">{{oneSingleHotel.price}} (Ultra High-End) </h5>   
+                
+                  <h5>Total reviews: {{oneSingleHotel.review_count}} </h5> 
+  
+                  <div *ngIf = "oneSingleHotel.location.length === 1" class="address">
+                      <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{oneSingleHotel.location[0]}}</p>
+                  </div>
+                  <div *ngIf = "oneSingleHotel.location.length === 2" class="address">
+                    <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{oneSingleHotel.location[0]}}, {{oneSingleHotel.location[1]}}</p>
+                  </div>
+                  <div *ngIf = "oneSingleHotel.location.length === 3" class="address">
+                    <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{oneSingleHotel.location[0]}}, {{oneSingleHotel.location[1]}}, {{oneSingleHotel.location[2]}}</p>
+                  </div>
+  
+                  <div class="phone">
+                      <i class="fa fa-phone" style="font-size:24px; color:#222"></i><p>{{oneSingleHotel.display_phone}}</p>
+                  </div>
+                 
+                  <div class="form-group">
+                    <button  (click) = "goToCreateTrip()" class="btn btn-primary form-control signupButton" value="add to trip" type="button"> Add to Trip </button>
+                    <span *ngIf = "!checked"><button  (click)="getWatsonInfo(oneSingleHotel)" class="btn btn-primary form-control signupButton" value="analyze reviews" type="button"> Analyze Reviews </button></span>
+                  </div>
+                  
+                </div> -->
+  
+                <!-- <div class = "overlay page-loader"></div> <div class = "overlay page-loader" *ngIf = "!showWatson && checked"><img  src="../../assets/images/loader.gif" alt=""></div>
+                <div class = "overlay page-loader" *ngIf = "!showWatson && clicked && !checked"><img  src="../../assets/images/loader.gif" alt=""></div> -->
+  
+                <!-- <div *ngIf = "showWatson">
+            
+                <div class="col-md-2">
+                  <div class="row">
+                    <div class="listWatsonEmotions "> -->
+                      <!-- <div>Emotions</div> -->
+                      <!-- <div class="emotionsContainer">
+                            <div class="eachEmotion">
+                              <p>Anger</p>
+                              <mat-progress-bar mode="determinate" value="{{theHotel.emotions.anger}}"></mat-progress-bar>
+                            </div>
+                            <div class="eachEmotion">
+                              <p>Disgust</p>
+                              <mat-progress-bar mode="determinate" value="{{theHotel.emotions.disgust}}"></mat-progress-bar>
+                            </div>
+                            <div class="eachEmotion">
+                              <p>Fear</p>
+                              <mat-progress-bar mode="determinate" value="{{theHotel.emotions.fear}}"></mat-progress-bar>
+                            </div>
+                            <div class="eachEmotion">
+                              <p>Joy</p>
+                              <mat-progress-bar mode="determinate" value="{{theHotel.emotions.joy}}"></mat-progress-bar>
+                            </div>
+                            <div class="eachEmotion">
+                              <p>Sadness</p>
+                              <mat-progress-bar mode="determinate" value="{{theHotel.emotions.sadness}}"></mat-progress-bar>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+               
+                <div class="row">
+                    <div class="col-12 listWatsonEmotions">
+                      <app-bar-gauge [sentimentAnalyses] = "[theHotel.watson_sentiment[1], theHotel.watson_sentiment[0], theHotel.watson_sentiment[2]]"></app-bar-gauge>
+                    </div>
+                </div>
+  
+                </div>
+  
+                <div class="col-md-4 listWatsonEmotions">
+                    <p>Top Keywords</p>
+                    <div class="theKeywords">
+                      <div *ngFor = "let keyword of theHotel.keywords | slice:0:3" class="topKeywords" style="color:#222">
+                        <p>{{keyword.text}}</p>
+                      </div>
+                      <div *ngFor = "let keyword of theHotel.keywords | slice:3:25" class="secondaryKeywords" style="color:#222">
+                        <p>{{keyword.text}}</p>
+                      </div>
+                  </div>
+                </div>
+  
+                </div>
+  
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </section>
+      <!-- END section -->
+    <!-- ======================================================= -->
+    
+  
+    
+    <!-- ======================================================= -->
+  
+  

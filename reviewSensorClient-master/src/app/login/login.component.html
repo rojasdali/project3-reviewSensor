@@ -1,0 +1,53 @@
+<app-topnav></app-topnav>
+
+  
+<section class="probootstrap_section section" id="signupHeader">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-md-12">
+        <h2 class="display-4 border-bottom probootstrap-section-heading underline">Log In</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="probootstrap_section bg-light signupContainer" id="section-contact">
+  <div class="signup">
+    <div class="col-md-5 signupForm">
+      <div class="probootstrap-animate">
+        <form class="probootstrap-form probootstrap-form-box">
+
+          <div class="form-group">
+            <label for="email" class="sr-only sr-only-focusable">Email</label>
+            <input type="email" [(ngModel)]="formInfo.username" class="form-control" id="email" name="email" placeholder="Email" />
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="sr-only sr-only-focusable">Password</label>
+            <input type="password" [(ngModel)]="formInfo.password" class="form-control" id="password" name="message" placeholder="Password"
+            />
+          </div>
+
+          <div class="form-group">
+            <button (click)="login(); refresh()" class="btn btn-primary form-control signupButton" value="log in"> Log In </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section> <!-- END section -->
+
+<!-- ================================================================== -->
+
+<!-- <div *ngIf="user">
+  <h2> You are now logged in as {{ user.username }}!! </h2>
+  <p> Here's the user object </p>
+  <pre> {{ user | json }} </pre> // to show the user data in DB in a preaty json form -->
+
+  <!-- <p *ngIf="privateData"> Here's some data fetched from a protected API </p>
+    <pre> {{ privateData | json }} </pre>  -->
+
+  <!-- <button (click)="logout()"> logout </button>
+  <button (click)="getPrivateData()"> Get private data </button>
+</div> -->

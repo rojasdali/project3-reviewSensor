@@ -1,0 +1,56 @@
+<!-- Logged out top nav -->
+<div *ngIf="!user">
+    <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar topnav" id="probootstrap-navbar">
+      <div class="container">
+        <a class="navbar-brand" [routerLink]="['/']" (click)="refresh()"> ReviewSensor </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span>
+            <i class="ion-navicon"></i>
+          </span>
+        </button>
+        <div class="collapse navbar-collapse" id="probootstrap-menu">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/']" (click)="refresh()">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/signup']" (click)="refresh()">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/login']" (click)="refresh()">Log In</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+<!-- Logged in top nav -->
+<div *ngIf="user">
+  <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar topnav" id="probootstrap-navbar">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']" (click)="refresh()"> Welcome {{ user.userFname }} </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span>
+          <i class="ion-navicon"></i>
+        </span>
+      </button>
+      <div class="collapse navbar-collapse" id="probootstrap-menu">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/']" (click)="refresh()">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="goToDashboard(); refresh()">My Trips</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<!-- END nav -->

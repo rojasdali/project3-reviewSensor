@@ -1,0 +1,249 @@
+<app-topnav></app-topnav>
+
+<div *ngIf = "!showForm"> 
+<div class="probootstrap_section hotel-list">
+  
+  <section class="probootstrap_section section" id="dashboardSectionHeader">
+    <div class="container">
+      <div class="row text-center mb-5">
+        <div class="col-md-12">
+          <h2 class="display-4 border-bottom probootstrap-section-heading underline">Upcoming Trips</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="container">
+    <div *ngFor = "let trip of allUserTrips | sortgrid: 'startDate'">
+
+      <div class="row probootstrap-media tripListContainer">
+        <div class="tripHeaderSection col-md-12">
+          <div class="col-md-12 tripListName">
+            <h3>{{trip.tripName}}</h3>
+            <div class="editIcons">
+              <i class="fa fa-edit" *ngIf = "!showForm" (click) = "showEditForm(trip)" style="font-size:30px; color:#00CA4C"></i>
+              <i class="fa fa-trash-o" *ngIf = "!showForm" (click) = "deleteTrip(trip)" style="font-size:30px; color:rgba(202, 0, 0, 0.5)"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 tripListDetails">
+          <div class="col-md-4 tripInfo">
+            <div class="startDate">
+              <i class="fa fa-calendar" style="font-size:24px; color:#00CA4C"></i>
+              <p>{{trip.startDate | date}}</p>
+            </div>
+
+            <div class="endDate">
+              <i class="fa fa-calendar" style="font-size:24px; color:rgba(202, 0, 0, 0.5)"></i>
+              <p>{{trip.endDate | date}}</p>
+            </div>
+
+            <div class="tripNotes">
+              <i class="fa fa-sticky-note-o" style="font-size:24px; color:#222"></i>
+              <p>{{trip.tripNotes}}</p>
+            </div>
+          </div> <!-- END col-md-4 tripInfo -->
+
+          <div class="col-md-8 hotelTripInfoContainer">
+
+            <div class="col-md-4 hotelTripImage">
+              <img [src]="trip.hotel.image_url" alt="{{trip.hotel.name}} image" class="img-fluid">
+            </div>
+
+            <div class="col-md-8 hotelTripInfo">
+              <h5 class="mb-3">{{trip.hotel.name}}</h5>
+              <div class="priceDiv">
+                <p *ngIf="trip.hotel.price.length === 1">{{trip.hotel.price}} (Inexpensive)</p>
+                <p *ngIf="trip.hotel.price.length === 2">{{trip.hotel.price}} (Moderate)</p>  
+                <p *ngIf="trip.hotel.price.length === 3">{{trip.hotel.price}} (Pricey)</p>  
+                <p *ngIf="trip.hotel.price.length === 4">{{trip.hotel.price}} (Ultra High-End)</p>
+              </div>
+              <div class="ratingContainer"> 
+                <h6>{{trip.hotel.review_count}} reviews total</h6> 
+              </div> 
+
+              <div *ngIf = "trip.hotel.location.length === 1" class="address">
+                <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{trip.hotel.location[0]}}</p>
+              </div>
+              <div *ngIf = "trip.hotel.location.length === 2" class="address">
+                <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{trip.hotel.location[0]}}, {{trip.hotel.location[1]}}</p>
+              </div>
+              <div *ngIf = "trip.hotel.location.length === 3" class="address">
+                <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{trip.hotel.location[0]}}, {{trip.hotel.location[1]}}, {{trip.hotel.location[2]}}</p>
+              </div>
+
+              <div class="phone">
+                <i class="fa fa-phone" style="font-size:24px; color:#222"></i><p>{{trip.hotel.display_phone}}</p>
+              </div>
+            </div> <!-- END hotelTripInfo-->
+
+            <div class="col-md-12 watsonDetails">
+              <div class="watsonSentiment">
+                <p>Sentiment</p>
+                <div class="positiveSentiment">
+                  <h3>{{trip.hotel.watson_sentiment[0]}}%</h3>
+                </div>
+                <div class="neutralSentiment">
+                  <h3>{{trip.hotel.watson_sentiment[2]}}%</h3>
+                </div>
+                <div class="negativeSentiment">
+                  <h3>{{trip.hotel.watson_sentiment[1]}}%</h3>
+                </div>
+              </div>
+
+              <div class="watsonKeywords">
+                <p>Top Keywords</p>
+                <div class="theKeywords">
+                  <div *ngFor = "let keyword of trip.hotel.keywords | slice:0:3" class="topKeywords" style="color:#222">
+                    <p>{{keyword.text}}</p>
+                  </div>
+                  <div *ngFor = "let keyword of trip.hotel.keywords | slice:3:6" class="secondaryKeywords" style="color:#222">
+                    <p>{{keyword.text}}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="watsonEmotions">
+                <p>Emotions</p>
+                  <div class="emotionsContainer">
+                    <div class="eachEmotion">
+                      <p>Anger</p>
+                      <mat-progress-bar mode="determinate" value="{{trip.hotel.emotions.anger}}">Anger</mat-progress-bar>
+                    </div>
+                    <div class="eachEmotion">
+                      <p>Disgust</p>
+                      <mat-progress-bar mode="determinate" value="{{trip.hotel.emotions.disgust}}"></mat-progress-bar>
+                    </div>
+                    <div class="eachEmotion">
+                      <p>Fear</p>
+                      <mat-progress-bar mode="determinate" value="{{trip.hotel.emotions.fear}}"></mat-progress-bar>
+                    </div>
+                    <div class="eachEmotion">
+                      <p>Joy</p>
+                      <mat-progress-bar mode="determinate" value="{{trip.hotel.emotions.joy}}"></mat-progress-bar>
+                    </div>
+                    <div class="eachEmotion">
+                      <p>Sadness</p>
+                      <mat-progress-bar mode="determinate" value="{{trip.hotel.emotions.sadness}}"></mat-progress-bar>
+                    </div>
+                  </div>
+              </div>
+            </div> <!-- END watsonDetails-->
+
+          </div> <!-- END hotelTripInfoContainer-->
+
+        </div>
+      </div> <!-- END tripListContainer -->
+    </div> <!-- END ngFor -->
+  </div> <!-- END container -->
+</div> <!-- END probootstrap_section hotel-list -->
+</div>
+
+
+
+<!-- ==================================== WHEN FORM IS SHOWING ==================================== -->
+
+<div *ngIf = "showForm"> 
+  <section class="probootstrap_section section" id="editHeader">
+    <div class="container">
+      <div class="row text-center mb-5">
+        <div class="col-md-12">
+          <h2 class="display-4 border-bottom probootstrap-section-heading underline">Edit {{selectedTrip.tripName}} Trip</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="row editTripInfoContainer">
+
+    <div class="col-md-12 editTripListDetails">
+      <div class="editTripInfo">
+        <div class="startDate">
+          <i class="fa fa-calendar" style="font-size:24px; color:#00CA4C"></i>
+          <p>{{selectedTrip.startDate | date}}</p>
+        </div>
+
+        <div class="endDate">
+          <i class="fa fa-calendar" style="font-size:24px; color:rgba(202, 0, 0, 0.5)"></i>
+          <p>{{selectedTrip.endDate | date}}</p>
+        </div>
+
+        <div class="tripNotes">
+          <i class="fa fa-sticky-note-o" style="font-size:24px; color:#222"></i>
+          <p>{{selectedTrip.tripNotes}}</p>
+        </div>
+      </div> <!-- END col-md-5 tripInfo -->
+
+      <div class="edithotelTripInfoContainer">
+
+        <div class="editHotelTripImage">
+          <img [src]="selectedTrip.hotel.image_url" alt="{{selectedTrip.hotel.name}} image" class="img-fluid">
+        </div>
+
+        <div class="editHotelTripInfo">
+          <h5 class="mb-3">{{selectedTrip.hotel.name}}</h5>
+          <div class="priceDiv">
+            <p *ngIf="selectedTrip.hotel.price.length === 1">{{selectedTrip.hotel.price}} (Inexpensive)</p>
+            <p *ngIf="selectedTrip.hotel.price.length === 2">{{selectedTrip.hotel.price}} (Moderate)</p>  
+            <p *ngIf="selectedTrip.hotel.price.length === 3">{{selectedTrip.hotel.price}} (Pricey)</p>  
+            <p *ngIf="selectedTrip.hotel.price.length === 4">{{selectedTrip.hotel.price}} (Ultra High-End)</p>
+          </div>
+          <div class="ratingContainer"> 
+            <h6>{{selectedTrip.hotel.review_count}} reviews total</h6> 
+          </div> 
+
+          <div *ngIf = "selectedTrip.hotel.location.length === 1" class="address">
+            <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{selectedTrip.hotel.location[0]}}</p>
+          </div>
+          <div *ngIf = "selectedTrip.hotel.location.length === 2" class="address">
+            <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{selectedTrip.hotel.location[0]}}, {{selectedTrip.hotel.location[1]}}</p>
+          </div>
+          <div *ngIf = "selectedTrip.hotel.location.length === 3" class="address">
+            <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{selectedTrip.hotel.location[0]}}, {{selectedTrip.hotel.location[1]}}, {{selectedTrip.hotel.location[2]}}</p>
+          </div>
+
+          <div class="phone">
+            <i class="fa fa-phone" style="font-size:24px; color:#222"></i><p>{{selectedTrip.hotel.display_phone}}</p>
+          </div>
+        </div> <!-- END hotelTripInfo-->
+
+      </div> <!-- END hotelTripInfoContainer-->
+
+      </div>
+
+  </div>
+</div>
+
+
+<section *ngIf = "showForm" class="probootstrap_section bg-light signupContainer" id="section-contact">
+  <div class="signup">
+    <div class="col-md-5 signupForm">
+
+      <form class="probootstrap-form probootstrap-form-box">
+
+        <div class="form-group">
+          <label for="text" class="sr-only sr-only-focusable">Trip Name</label>
+          <input type="text" [(ngModel)]="formInfo.tripName" class="form-control form-field" id="tripName" name="tripName" value="selectedTrip.tripName"/>
+        </div>
+        <div class="form-group">
+          <label for="startDate" class="sr-only sr-only-focusable">Start Date</label>
+          <input type="date" [(ngModel)]="formInfo.startDate" class="form-control form-field" id="startDate" name="startDate" value="Start Date MM/DD/YYYY"/>
+        </div>
+        <div class="form-group">
+          <label for="endDate" class="sr-only sr-only-focusable">End Date</label>
+          <input type="date" [(ngModel)]="formInfo.endDate" class="form-control form-field" id="endDate" name="endDate" value="End Date MM/DD/YYYY"/>
+        </div>
+        <div class="form-group">
+          <label for="tripNotes" class="sr-only sr-only-focusable">Notes</label>
+          <input type="text" [(ngModel)]="formInfo.tripNotes" class="form-control form-field" id="tripNotes" name="tripNotes" value="Notes"/>
+        </div>
+
+        <div class="form-group">
+          <button (click)="updateTrip(selectedTrip)" class="btn btn-primary form-control signupButton" value="Update Trip"> Update Trip </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section> <!-- END section -->

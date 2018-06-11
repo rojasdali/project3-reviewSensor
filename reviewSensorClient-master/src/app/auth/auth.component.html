@@ -1,0 +1,58 @@
+<app-topnav></app-topnav>
+  
+<section class="probootstrap_section section" id="signupHeader">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-md-12">
+        <h2 class="display-4 border-bottom probootstrap-section-heading underline">Sign Up</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="probootstrap_section bg-light signupContainer" id="section-contact">
+  <div class="signup">
+    <div class="col-md-5 signupForm">
+      <div class="probootstrap-animate">
+        <form class="probootstrap-form probootstrap-form-box">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fname" class="sr-only sr-only-focusable">First Name</label>
+                <input type="text" [(ngModel)]="formInfo.userFname" class="form-control form-field" id="fname" name="fname" placeholder="First Name"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lname" class="sr-only sr-only-focusable">Last Name</label>
+                <input type="text" [(ngModel)]="formInfo.userLname" class="form-control form-field" id="lname" name="lname" placeholder="Last Name"
+                />
+              </div>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="form-group">
+            <label for="email" class="sr-only sr-only-focusable">Email</label>
+            <input type="email" [(ngModel)]="formInfo.username" class="form-control form-field" id="email" name="email" placeholder="Email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="sr-only sr-only-focusable">Password</label>
+            <input type="password" [(ngModel)]="formInfo.password" class="form-control form-field" id="password" name="message" placeholder="Password"
+            />
+          </div>
+
+          <div class="form-group">
+            <button (click)="signup(); refresh()" class="btn btn-primary form-control signupButton" value="sign up"> Sign Up </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section> <!-- END section -->

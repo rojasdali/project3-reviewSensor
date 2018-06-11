@@ -1,0 +1,80 @@
+<app-topnav></app-topnav>
+
+<section class="probootstrap_section section" id="createHeader">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-md-12">
+        <h2 class="display-4 border-bottom probootstrap-section-heading underline">Create Your Trip</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="col-md-12 hotelCreateEditInfoContainer">
+
+  <div class="hotelCreateImage">
+    <img [src]="selectedHotel.image_url" alt="{{selectedHotel.name}} image" class="img-fluid">
+  </div>
+
+  <div class="hotelCreateEditInfo">
+    <h5>{{selectedHotel.name}}</h5>
+    <div class="priceDiv">
+      <p *ngIf="selectedHotel.price.length === 1">{{selectedHotel.price}} (Inexpensive)</p>
+      <p *ngIf="selectedHotel.price.length === 2">{{selectedHotel.price}} (Moderate)</p>  
+      <p *ngIf="selectedHotel.price.length === 3">{{selectedHotel.price}} (Pricey)</p>  
+      <p *ngIf="selectedHotel.price.length === 4">{{selectedHotel.price}} (Ultra High-End)</p>
+    </div>
+    <div class="ratingContainer"> 
+      <h6>{{selectedHotel.review_count}} reviews total</h6> 
+    </div> 
+
+    <div *ngIf = "selectedHotel.location.length === 1" class="address">
+      <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{selectedHotel.location[0]}}</p>
+    </div>
+    <div *ngIf = "selectedHotel.location.length === 2" class="address">
+      <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{selectedHotel.location[0]}}, {{selectedHotel.location[1]}}</p>
+    </div>
+    <div *ngIf = "selectedHotel.location.length === 3" class="address">
+      <i class="fa fa-map-marker" style="font-size:24px; color:#222"></i><p>{{selectedHotel.location[0]}}, {{selectedHotel.location[1]}}, {{selectedHotel.location[2]}}</p>
+    </div>
+
+    <div class="phone">
+      <i class="fa fa-phone" style="font-size:24px; color:#222"></i><p>{{selectedHotel.display_phone}}</p>
+    </div>
+  </div> <!-- END hotelTripInfo -->
+</div> <!-- END hotelTripInfoContainer -->
+
+
+<section class="probootstrap_section bg-light signupContainer" id="section-contact">
+  <div class="signup">
+    <div class="col-md-5 signupForm">
+      <!-- <div class="probootstrap-animate"> -->
+        <form class="probootstrap-form probootstrap-form-box">
+
+          <div class="form-group">
+            <label for="text" class="sr-only sr-only-focusable">Trip Name</label>
+            <input type="text" [(ngModel)]="formInfo.tripName" class="form-control form-field" id="tripName" name="tripName" placeholder="Name your trip"/>
+          </div>
+          <div class="form-group">
+              <label for="startDate" class="sr-only sr-only-focusable">Start Date</label>
+              <input type="date" [(ngModel)]="formInfo.startDate" class="form-control form-field" id="startDate" name="startDate" placeholder="Start Date MM/DD/YYYY"/>
+            </div>
+          <div class="form-group">
+            <label for="endDate" class="sr-only sr-only-focusable">End Date</label>
+            <input type="date" [(ngModel)]="formInfo.endDate" class="form-control form-field" id="endDate" name="endDate" placeholder="End Date MM/DD/YYYY"/>
+          </div>
+
+          <div class="form-group">
+            <label for="tripNotes" class="sr-only sr-only-focusable">Notes</label>
+            <input type="text" [(ngModel)]="formInfo.tripNotes" class="form-control form-field" id="tripNotes" name="tripNotes" placeholder="Notes"/>
+          </div>
+
+          <div class="form-group">
+            <button (click)="createTrip()" class="btn btn-primary form-control signupButton" value="Create Trip"> Create Trip </button>
+          </div>
+
+        </form>
+      <!-- </div> -->
+    </div>
+  </div>
+</section> <!-- END section -->
